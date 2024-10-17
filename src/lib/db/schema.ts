@@ -1,7 +1,6 @@
 import {
 	boolean,
 	timestamp,
-	pgTable,
 	text,
 	primaryKey,
 	integer,
@@ -9,9 +8,9 @@ import {
 } from 'drizzle-orm/pg-core';
 import type { AdapterAccountType } from '@auth/core/adapters';
 
-export const createTable = pgTableCreator((name) => `test_${name}`);
+export const createTable = pgTableCreator((name) => `fastcards_${name}`);
 
-export const users = pgTable('user', {
+export const users = createTable('user', {
 	id: text('id')
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID()),
@@ -21,7 +20,7 @@ export const users = pgTable('user', {
 	image: text('image')
 });
 
-export const accounts = pgTable(
+export const accounts = createTable(
 	'account',
 	{
 		userId: text('userId')
@@ -45,7 +44,7 @@ export const accounts = pgTable(
 	})
 );
 
-export const sessions = pgTable('session', {
+export const sessions = createTable('session', {
 	sessionToken: text('sessionToken').primaryKey(),
 	userId: text('userId')
 		.notNull()
@@ -53,7 +52,7 @@ export const sessions = pgTable('session', {
 	expires: timestamp('expires', { mode: 'date' }).notNull()
 });
 
-export const verificationTokens = pgTable(
+export const verificationTokens = createTable(
 	'verificationToken',
 	{
 		identifier: text('identifier').notNull(),
@@ -67,7 +66,7 @@ export const verificationTokens = pgTable(
 	})
 );
 
-export const authenticators = pgTable(
+export const authenticators = createTable(
 	'authenticator',
 	{
 		credentialID: text('credentialID').notNull().unique(),
