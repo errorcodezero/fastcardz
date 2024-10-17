@@ -1,14 +1,17 @@
 // lib/trpc/context.ts
 import type { RequestEvent } from '@sveltejs/kit';
 import type { inferAsyncReturnType } from '@trpc/server';
+import { initTRPC } from '@trpc/server';
+import { db } from '$lib/db';
 
-// we're not using the event parameter is this example,
-// hence the eslint-disable rule
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function createContext(event: RequestEvent) {
-  return {
-    // context information
-  };
+	const session = await event.locals.auth()
+	return {
+		db,
+		session
+	};
 }
 
 export type Context = inferAsyncReturnType<typeof createContext>;
+
+export const t = initTRPC.context<Context>().create();
