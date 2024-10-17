@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from "m3-svelte";
+	import { Button } from 'm3-svelte';
 </script>
 
 <div class="grid place-items-center pl-3">

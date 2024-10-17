@@ -1,10 +1,10 @@
-import { type Config } from "drizzle-kit";
+import { type Config } from 'drizzle-kit';
 
 export default {
-  schema: "./src/server/db/schema.ts",
-  dialect: "postgresql",
-  dbCredentials: {
-    url: process.env.DATABASE_URL!,
-  },
-  tablesFilter: ["fastcards_*"],
+	schema: './src/server/db/schema.ts',
+	dialect: 'postgresql',
+	dbCredentials: {
+		url: process.env.DATABASE_URL!
+	},
+	tablesFilter: ['fastcards_*']
 } satisfies Config;
