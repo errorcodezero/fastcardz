@@ -45,9 +45,12 @@
 		"@auth/drizzle-adapter": "^1.7.0",
 		"@auth/sveltekit": "^1.7.0",
 		"@ktibow/iconset-material-symbols": "^0.0.1728668628",
+		"@trpc/client": "^10.45.2",
+		"@trpc/server": "^10.45.2",
 		"dotenv": "^16.4.5",
 		"drizzle-orm": "^0.35.1",
 		"m3-svelte": "^3.2.8",
-		"postgres": "^3.4.4"
+		"postgres": "^3.4.4",
+		"trpc-sveltekit": "^3.6.2"
 	}
 }
