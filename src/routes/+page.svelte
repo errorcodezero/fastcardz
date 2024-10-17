@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { Button } from 'm3-svelte';
-	import { trpc } from "$lib/trpc/client"
+	import { trpc } from '$lib/trpc/client';
 	import { page } from '$app/stores';
 
-	let greeting = $state("press button to do smth")
+	let greeting = $state('press button to do smth');
 
 	const loadData = async () => {
 		greeting = await trpc($page).greeting.query();
-	}
+	};
 </script>
 
 <div class="grid place-items-center space-y-2">

@@ -5,7 +5,7 @@ import { initTRPC } from '@trpc/server';
 import { db } from '$lib/db';
 
 export async function createContext(event: RequestEvent) {
-	const session = await event.locals.auth()
+	const session = await event.locals.auth();
 	return {
 		db,
 		session

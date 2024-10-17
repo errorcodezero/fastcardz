@@ -6,4 +6,4 @@ import { createTRPCHandle } from 'trpc-sveltekit';
 import { handle as authHandle } from './auth';
 const trpcHandle: Handle = createTRPCHandle({ router, createContext });
 
-export const handle = sequence(authHandle, trpcHandle); 
+export const handle = sequence(authHandle, trpcHandle);
