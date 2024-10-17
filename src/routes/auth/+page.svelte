@@ -1,7 +1,5 @@
 <script>
-	import { Button } from "m3-svelte"
+	import { Button } from 'm3-svelte';
 </script>
 
-<Button type="tonal"> 
-	Google
-</Button>
+<Button type="tonal">Google</Button>
