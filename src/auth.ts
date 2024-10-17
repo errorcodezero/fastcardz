@@ -6,5 +6,5 @@ import Google from '@auth/sveltekit/providers/google';
 export const { handle, signIn, signOut } = SvelteKitAuth({
 	trustHost: true,
 	adapter: DrizzleAdapter(db),
-	providers: [Google],
+	providers: [Google]
 });

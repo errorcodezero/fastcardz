@@ -29,15 +29,17 @@
 	];
 </script>
 
-<div class="fixed inset-x-0 bottom-0">
-	<NavList type="bar">
-		{#each routes as route}
-			<NavListLink
-				type="bar"
-				href={route.href}
-				selected={$page.url.pathname === route.href}
-				icon={route.icon}>{route.name}</NavListLink
-			>
-		{/each}
-	</NavList>
-</div>
+{#if $page.data.session}
+	<div class="fixed inset-x-0 bottom-0">
+		<NavList type="bar">
+			{#each routes as route}
+				<NavListLink
+					type="bar"
+					href={route.href}
+					selected={$page.url.pathname === route.href}
+					icon={route.icon}>{route.name}</NavListLink
+				>
+			{/each}
+		</NavList>
+	</div>
+{/if}

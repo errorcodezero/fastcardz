@@ -1,11 +1,4 @@
-import {
-	boolean,
-	timestamp,
-	text,
-	primaryKey,
-	integer,
-	pgTableCreator
-} from 'drizzle-orm/pg-core';
+import { boolean, timestamp, text, primaryKey, integer, pgTableCreator } from 'drizzle-orm/pg-core';
 import type { AdapterAccountType } from '@auth/core/adapters';
 
 export const createTable = pgTableCreator((name) => `fastcards_${name}`);
