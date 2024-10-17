@@ -5,8 +5,11 @@ import {
   text,
   primaryKey,
   integer,
+  pgTableCreator
 } from "drizzle-orm/pg-core"
 import type { AdapterAccountType } from "@auth/core/adapters"
+
+export const createTable = pgTableCreator((name) => `test_${name}`);
  
 export const users = pgTable("user", {
   id: text("id")
