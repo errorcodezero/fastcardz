@@ -6,7 +6,8 @@
 	let greeting = $state('press button to do smth');
 
 	const loadData = async () => {
-		greeting = await trpc($page).greeting.query();
+		greeting = await trpc($page).card.test.query();
+		console.log("ok")
 	};
 </script>
 
