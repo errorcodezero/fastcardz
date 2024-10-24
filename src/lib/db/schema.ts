@@ -10,11 +10,10 @@ import { type AdapterAccount } from '@auth/core/adapters';
  */
 export const createTable = sqliteTableCreator((name) => `fastcards_${name}`);
 
-export const posts = createTable(
-	'post',
+export const cards = createTable(
+	'card',
 	{
 		id: int('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
-		name: text('name', { length: 256 }),
 		createdById: text('created_by', { length: 255 })
 			.notNull()
 			.references(() => users.id),
@@ -23,9 +22,27 @@ export const posts = createTable(
 			.notNull(),
 		updatedAt: int('updatedAt', { mode: 'timestamp' }).$onUpdate(() => new Date())
 	},
-	(example) => ({
-		createdByIdIdx: index('created_by_idx').on(example.createdById),
-		nameIndex: index('name_idx').on(example.name)
+	(card) => ({
+		createdByIdIdx: index('card_created_by_idx').on(card.createdById)
+	})
+);
+
+export const posts = createTable(
+	'post',
+	{
+		id: int('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
+		name: text('name').notNull(),
+		createdById: text('created_by', { length: 255 })
+			.notNull()
+			.references(() => users.id),
+		createdAt: int('created_at', { mode: 'timestamp' })
+			.default(sql`(unixepoch())`)
+			.notNull(),
+		updatedAt: int('updatedAt', { mode: 'timestamp' }).$onUpdate(() => new Date())
+	},
+	(post) => ({
+		createdByIdIdx: index('post_created_by_idx').on(post.createdById),
+		nameIdx: index('name_idx').on(post.name)
 	})
 );
 
@@ -43,7 +60,8 @@ export const users = createTable('user', {
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
-	accounts: many(accounts)
+	accounts: many(accounts),
+	posts: many(posts)
 }));
 
 export const accounts = createTable(
