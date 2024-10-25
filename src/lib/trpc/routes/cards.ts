@@ -44,5 +44,14 @@ export const cardRouter = createTRPCRouter({
 			const deck = await ctx.db.delete(decks).where(eq(decks.id, input.id)).limit(1);
 
 			return deck;
-		})
+		}),
+	createCard: protectedProcedure
+		.input(
+			z.object({
+				id: z.number(),
+				front: z.string(),
+				back: z.string()
+			})
+		)
+		.query(async () => {})
 });

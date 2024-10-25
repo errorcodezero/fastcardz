@@ -18,13 +18,13 @@
 			name: 'Home',
 			icon: iconHomeOutline,
 			selectedIcon: iconHome,
-			href: '/'
+			href: '/home'
 		},
 		{
-			name: 'Log In',
+			name: 'Settings',
 			icon: iconPersonOutline,
 			selectedIcon: iconPerson,
-			href: '/auth'
+			href: '/settings'
 		}
 	];
 </script>
