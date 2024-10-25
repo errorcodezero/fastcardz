@@ -2,7 +2,6 @@ import { createTRPCRouter, protectedProcedure } from '$lib/trpc';
 import { z } from 'zod';
 import { decks } from '$lib/db/schema';
 import { TRPCError } from '@trpc/server';
-type NewDeck = typeof decks.$inferInsert;
 
 export const cardRouter = createTRPCRouter({
 	getCards: protectedProcedure
@@ -29,7 +28,8 @@ export const cardRouter = createTRPCRouter({
 			const deck = await ctx.db
 				.insert(decks)
 				.values({ name: input.name, createdById: ctx.session.user.id })
-				.catch((err) => console.error(err));
+				.returning();
+
 			return deck;
 		})
 });

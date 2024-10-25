@@ -5,26 +5,31 @@
 	import { page } from "$app/stores";
 	
 	let dataGetCards = $state({});
+	let dataGetInput = $state(1);
 	const fetchGetCards = async () => {
 		dataGetCards = await trpc($page).card.getCards.query({
-			id: 0
+			id: dataGetInput
 		}).catch(() => "request failed")
 	}
-
+	
 	let dataCreateDeck = $state({});
+	let dataCreateInput = $state("");
+	const dataCreateInputExtras = {
+		type: "number"
+	}
 	const fetchCreateDeck = async () => {
 		dataCreateDeck = await trpc($page).card.createDeck.query({
-			name: "test deck woah"
-		}).catch(() => "request failed");
+			name: "test deck"
+		})
 	}
 </script>
 
-<TextField name="Deck ID"/>
+<TextField name="Deck ID" extraOptions={dataCreateInputExtras}/>
 <Button type="tonal" on:click={fetchGetCards}>getCards</Button>
-<p>Data: {dataGetCards.toString()}</p>
+<p>Data: {dataGetCards}</p>
 
 <br/>
 
-<TextField name="Deck Name"/>
+<TextField name="Deck Name" value={dataCreateInput}/>
 <Button type="tonal" on:click={fetchCreateDeck}>createDeck</Button>
-<p>Data: {dataCreateDeck.toString().toString()}</p>
+<p>Data: {dataCreateDeck.toString()}</p>
