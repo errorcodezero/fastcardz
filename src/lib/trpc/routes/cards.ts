@@ -1,11 +1,14 @@
 import { createTRPCRouter, protectedProcedure } from '$lib/trpc';
 import { z } from 'zod';
+import { decks } from '$lib/db/schema';
+import { TRPCError } from '@trpc/server';
+type NewDeck = typeof decks.$inferInsert;
 
 export const cardRouter = createTRPCRouter({
 	getCards: protectedProcedure
 		.input(
 			z.object({
-				id: z.number().int().gte(0)
+				id: z.number()
 			})
 		)
 		.query(async ({ ctx, input }) => {
@@ -14,5 +17,19 @@ export const cardRouter = createTRPCRouter({
 			});
 
 			return cards;
+		}),
+	createDeck: protectedProcedure
+		.input(
+			z.object({
+				name: z.string()
+			})
+		)
+		.query(async ({ ctx, input }) => {
+			if (!ctx.session.user.id) throw new TRPCError({ code: 'UNAUTHORIZED' });
+			const deck = await ctx.db
+				.insert(decks)
+				.values({ name: input.name, createdById: ctx.session.user.id })
+				.catch((err) => console.error(err));
+			return deck;
 		})
 });

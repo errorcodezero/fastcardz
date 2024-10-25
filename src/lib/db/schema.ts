@@ -27,8 +27,8 @@ export const cards = createTable(
 	})
 );
 
-export const posts = createTable(
-	'post',
+export const decks = createTable(
+	'decks',
 	{
 		id: int('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
 		name: text('name').notNull(),
@@ -61,7 +61,6 @@ export const users = createTable('user', {
 
 export const usersRelations = relations(users, ({ many }) => ({
 	accounts: many(accounts),
-	posts: many(posts)
 }));
 
 export const accounts = createTable(
