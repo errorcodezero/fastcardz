@@ -25,7 +25,7 @@ export const cards = createTable(
 		back: text('back'),
 		deckId: int('deck_id')
 			.notNull()
-			.references(() => decks.id),
+			.references(() => decks.id)
 	},
 	(card) => ({
 		createdByIdIdx: index('card_created_by_idx').on(card.createdById),
@@ -70,7 +70,7 @@ export const users = createTable('user', {
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
-	accounts: many(accounts),
+	accounts: many(accounts)
 }));
 
 export const accounts = createTable(

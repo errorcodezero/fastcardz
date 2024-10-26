@@ -9,7 +9,7 @@
 	<a href={`/deck/${card.id}`}
 		><CardClickable type="elevated">
 			<span class="text-xl">{card.front}</span>
-			<br/>
+			<br />
 			<span class="text-xl">{card.back}</span>
 		</CardClickable></a
 	>
