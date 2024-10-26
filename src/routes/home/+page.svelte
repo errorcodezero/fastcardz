@@ -4,7 +4,11 @@
 	import { page } from '$app/stores';
 	import { trpc } from '$lib/trpc/client';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 </script>
 
 <div class="grid place-items-center space-y-2">

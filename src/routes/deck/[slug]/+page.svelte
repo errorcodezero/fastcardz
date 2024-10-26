@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { CardClickable } from 'm3-svelte';
 	import type { PageData } from './$types';
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 </script>
 
 <h1>Cards: {data.cards.length}</h1>
