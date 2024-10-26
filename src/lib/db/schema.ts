@@ -20,10 +20,16 @@ export const cards = createTable(
 		createdAt: int('created_at', { mode: 'timestamp' })
 			.default(sql`(unixepoch())`)
 			.notNull(),
-		updatedAt: int('updatedAt', { mode: 'timestamp' }).$onUpdate(() => new Date())
+		updatedAt: int('updatedAt', { mode: 'timestamp' }).$onUpdate(() => new Date()),
+		front: text('front'),
+		back: text('back'),
+		deckId: int('deck_id')
+			.notNull()
+			.references(() => decks.id),
 	},
 	(card) => ({
-		createdByIdIdx: index('card_created_by_idx').on(card.createdById)
+		createdByIdIdx: index('card_created_by_idx').on(card.createdById),
+		deckIdIdx: index('deck_idx').on(card.deckId)
 	})
 );
 
@@ -45,6 +51,10 @@ export const decks = createTable(
 		nameIdx: index('name_idx').on(post.name)
 	})
 );
+
+//export const decksRelations = relations(decks, ({ many }) => ({
+//	cards: many(cards),
+//}));
 
 export const users = createTable('user', {
 	id: text('id', { length: 255 })

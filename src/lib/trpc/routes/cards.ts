@@ -24,7 +24,7 @@ export const cardRouter = createTRPCRouter({
 				name: z.string()
 			})
 		)
-		.query(async ({ ctx, input }) => {
+		.mutation(async ({ ctx, input }) => {
 			if (!ctx.session.user.id) throw new TRPCError({ code: 'UNAUTHORIZED' });
 			const deck = await ctx.db
 				.insert(decks)
@@ -39,7 +39,7 @@ export const cardRouter = createTRPCRouter({
 				id: z.number()
 			})
 		)
-		.query(async ({ ctx, input }) => {
+		.mutation(async ({ ctx, input }) => {
 			if (!ctx.session.user.id) throw new TRPCError({ code: 'UNAUTHORIZED' });
 			const deck = await ctx.db.delete(decks).where(eq(decks.id, input.id)).limit(1);
 
@@ -53,5 +53,5 @@ export const cardRouter = createTRPCRouter({
 				back: z.string()
 			})
 		)
-		.query(async () => {})
+		.mutation(async () => {})
 });
