@@ -16,6 +16,7 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
 			}
 		})
 	},
+	secret: process.env.AUTH_SECRET!,
 	trustHost: true,
 	adapter: DrizzleAdapter(db, {
 		usersTable: users,
