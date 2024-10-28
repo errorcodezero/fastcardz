@@ -10,6 +10,8 @@ import { type AdapterAccount } from '@auth/core/adapters';
  */
 export const createTable = sqliteTableCreator((name) => `fastcards_${name}`);
 
+// type LearningStatus = "new" | "review" | "done";
+
 export const cards = createTable(
 	'card',
 	{
@@ -51,6 +53,42 @@ export const decks = createTable(
 		nameIdx: index('name_idx').on(post.name)
 	})
 );
+
+// Just implementing exactly what is off this page on the anki wki
+// https://docs.ankiweb.net/stats.html?highlight=database#manual-analysis
+export const reviewLog = createTable('reviewLog', {
+	id: int('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
+
+	// card id
+	cid: int('cid')
+		.notNull()
+		.references(() => decks.id),
+
+	// usn isn't needed
+	// no need to manage sync status when everything is online
+
+	// lot easier to just set this to 1 or 0
+	// 1 for right and 0 for wrong
+	ease: int('ease'),
+
+	// negative ivl is in seconds
+	// positive ivl is in days
+	// anki devs what??????
+	ivl: int('ivl'),
+	lastIvl: int('last_ivl'),
+
+	// basically how much to multiply the ivl by(factor/1000)
+	factor: int('factor'),
+
+	// time you spent on the card
+	time: int('time'),
+
+	// 0 for learning
+	// 1 for review
+	// 2 for relearning
+	// 3 for done/extra review stuff
+	type: int('type')
+});
 
 //export const decksRelations = relations(decks, ({ many }) => ({
 //	cards: many(cards),
