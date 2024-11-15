@@ -1,33 +1,36 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-	import { CardClickable, Button } from 'm3-svelte';
+	import { Button, Dialog, TextField, Icon, ButtonLink } from 'm3-svelte';
 	import { page } from '$app/stores';
-	import { trpc } from '$lib/trpc/client';
+	import iconBrush from '@ktibow/iconset-material-symbols/brush';
+	import iconPlayingCards from '@ktibow/iconset-material-symbols/playing-cards';
+	import iconSchool from '@ktibow/iconset-material-symbols/school';
 
-	interface Props {
-		data: PageData;
-	}
-
-	let { data }: Props = $props();
+	let open = false;
 </script>
 
-<div class="grid place-items-center space-y-2">
-	<h1 class="text-4xl">Jump into a study session</h1>
-	<div class="flex space-x-3">
-		{#each data.decks as deck}
-			<a href={`/deck/${deck.id}`}
-				><CardClickable type="elevated">
-					<span class="text-xl">{deck.name}</span>
-				</CardClickable></a
-			>
-		{/each}
+<svelte:head>
+	<title>Home | Fastcardz</title>
+</svelte:head>
+
+<div class="grid place-items-center space-y-2 pt-3">
+	<h1 class="text-4xl">Good Evening, {$page.data.session?.user?.name}</h1>
+
+	<div>
+		<Button iconType="left" type="tonal" on:click={() => (open = true)}
+			><Icon icon={iconPlayingCards} />Create Deck</Button
+		>
+		<ButtonLink iconType="left" type="tonal" href="/study"
+			><Icon icon={iconSchool} />Study</ButtonLink
+		>
 	</div>
 
-	<Button
-		type="tonal"
-		on:click={() =>
-			trpc($page).card.createDeck.mutate({
-				name: 'testDeck'
-			})}>Make test deck</Button
-	>
+	<Dialog headline="Create new deck" bind:open>
+		<TextField name="Name" />
+		<br />
+		<TextField name="Description" />
+		<svelte:fragment slot="buttons">
+			<Button type="text">Create Manually</Button>
+			<Button iconType="left" type="tonal"><Icon icon={iconBrush} />Create with AI</Button>
+		</svelte:fragment>
+	</Dialog>
 </div>
