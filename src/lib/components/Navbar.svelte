@@ -50,7 +50,7 @@
 					icon={route.icon}>{route.name}</NavListLink
 				>
 			{/each}
-			<NavListButton on:click={() => signOut} selected={false} type="bar" icon={iconLogOut}>
+			<NavListButton on:click={() => signOut()} selected={false} type="bar" icon={iconLogOut}>
 				Sign Out
 			</NavListButton>
 		</NavList>
