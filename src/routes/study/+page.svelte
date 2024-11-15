@@ -21,7 +21,7 @@
 	let front = $state(true);
 </script>
 
-<div class="grid place-items-center pl-5 pr-5">
+<div class="grid place-items-center pl-5 pr-5 pt-3">
 	<Card type="filled">
 		<p class="text-2xl">{front ? randomCard.front : randomCard.back}</p>
 		<br />
